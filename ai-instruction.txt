@@ -1,0 +1,153 @@
+Langkah 2: Membuat Migration dan Seeder
+Migration digunakan untuk membuat tabel-tabel yang diperlukan, dan seeder digunakan untuk mengisi data awal.
+
+1. Membuat Migration untuk Tabel-Tabel
+Jalankan perintah berikut untuk membuat migration:
+
+php spark make:migration create_users_table
+php spark make:migration create_angsuran_kavling_table
+php spark make:migration create_angsuran_rumah_table
+php spark make:migration create_renovasi_table
+Edit file migration seperti yang telah disebutkan dalam jawaban sebelumnya.
+
+2. Membuat Seeder untuk Tabel users
+Jalankan perintah berikut untuk membuat seeder:
+
+php spark make:seeder UserSeeder
+Edit file UserSeeder.php untuk menambahkan data awal:
+
+<?php
+
+namespace App\Database\Seeds;
+
+use CodeIgniter\Database\Seeder;
+
+class UserSeeder extends Seeder
+{
+    public function run()
+    {
+        $data = [
+            'username' => 'admin@gmail.com',
+            'password' => password_hash('admin1234', PASSWORD_BCRYPT),
+        ];
+
+        $this->db->table('users')->insert($data);
+    }
+}
+
+3. Jalankan Migration dan Seeder
+Jalankan perintah berikut untuk menjalankan migration dan seeder:
+
+php spark migrate
+php spark db:seed UserSeeder
+
+Langkah 3: Membuat Struktur Aplikasi
+1. Folder dan File Dasar
+Struktur folder aplikasi akan terlihat seperti ini:
+
+app/
+├── Controllers/
+│   ├── Auth.php
+│   ├── Dashboard.php
+│   ├── AngsuranKavling.php
+│   ├── AngsuranRumah.php
+│   ├── Summary.php
+│   ├── Renovasi.php
+├── Models/
+│   ├── UserModel.php
+│   ├── AngsuranKavlingModel.php
+│   ├── AngsuranRumahModel.php
+│   ├── RenovasiModel.php
+├── Views/
+│   ├── auth/
+│   │   ├── login.php
+│   ├── dashboard.php
+│   ├── angsuran_kavling.php
+│   ├── angsuran_rumah.php
+│   ├── summary.php
+│   ├── renovasi.php
+
+2. Membuat Controller
+Contoh controller Auth.php:
+
+<?php
+
+namespace App\Controllers;
+
+use App\Models\UserModel;
+
+class Auth extends BaseController
+{
+    public function index()
+    {
+        return view('auth/login');
+    }
+
+    public function login()
+    {
+        $model = new UserModel();
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+
+        $user = $model->where('username', $username)->first();
+
+        if ($user && password_verify($password, $user['password'])) {
+            session()->set('logged_in', true);
+            return redirect()->to('/dashboard');
+        } else {
+            session()->setFlashdata('error', 'Invalid username or password');
+            return redirect()->to('/auth');
+        }
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/auth');
+    }
+}
+3. Membuat View
+Contoh view login.php di folder app/Views/auth/:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <?php if (session()->getFlashdata('error')): ?>
+        <p style="color: red;"><?= session()->getFlashdata('error') ?></p>
+    <?php endif; ?>
+    <form action="/auth/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
+Langkah 4: Konfigurasi Routing
+Tambahkan routing di file app/Config/Routes.php:
+
+$routes->get('/', 'Auth::index');
+$routes->post('/auth/login', 'Auth::login');
+$routes->get('/auth/logout', 'Auth::logout');
+
+$routes->group('', ['filter' => 'auth'], function ($routes) {
+    $routes->get('/dashboard', 'Dashboard::index');
+    $routes->get('/angsuran-kavling', 'AngsuranKavling::index');
+    $routes->get('/angsuran-rumah', 'AngsuranRumah::index');
+    $routes->get('/summary', 'Summary::index');
+    $routes->get('/renovasi', 'Renovasi::index');
+});
+
+Langkah 6: Implementasi Fitur Lain
+Setelah struktur dasar selesai, Anda dapat melanjutkan implementasi fitur lain seperti:
+Halaman angsuran_kavling untuk menampilkan data angsuran kavling.
+Halaman angsuran_rumah untuk menampilkan data angsuran rumah.
+Halaman summary untuk menghitung total hutang, total angsuran, dan sisa hutang.
+Halaman renovasi untuk menampilkan data renovasi.
