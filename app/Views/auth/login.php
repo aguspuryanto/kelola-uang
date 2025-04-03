@@ -20,6 +20,10 @@
                                 <?= session()->getFlashdata('error') ?>
                             </div>
                         <?php endif; ?>
+                        <div class="alert alert-info">
+                            <p>Username: admin@gmail.com</p>
+                            <p>Password: admin1234</p>
+                        </div>
                         <form action="/auth/login" method="post">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username:</label>
