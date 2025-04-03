@@ -12,7 +12,8 @@
                     Total Angsuran Rumah <?=count($angsuran)-2 ?> dari 72 kali angsuran
                 </div>
                 <div>
-                    <strong>Rp <?= number_format($total_angsuran['jumlah'], 0, ',', '.') ?></strong>
+                    <p>Total Hutang <strong>Rp <?= number_format($total_hutang['jumlah'], 0, ',', '.') ?></strong></p>
+                    <p>Total Angsuran <strong>Rp <?= number_format($total_angsuran['jumlah'], 0, ',', '.') ?></strong></p>
                 </div>
             </div>
         </div>

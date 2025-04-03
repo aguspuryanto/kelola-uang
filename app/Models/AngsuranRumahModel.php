@@ -19,6 +19,14 @@ class AngsuranRumahModel extends Model
             ->selectSum('jumlah')
             ->get()->getRowArray();
     }
+
+    public function getTotalHutang()
+    {
+        return $this->db->table('hutang')
+            ->selectSum('jumlah')
+            ->where('id', 1)
+            ->get()->getRowArray();
+    }
     
 
 } 

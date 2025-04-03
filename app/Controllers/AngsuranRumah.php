@@ -19,6 +19,7 @@ class AngsuranRumah extends BaseController
     {
         $data['angsuran'] = $this->model->findAll();
         $data['total_angsuran'] = $this->model->getTotalAngsuran();
+        $data['total_hutang'] = $this->model->getTotalHutang();
         return view('angsuran_rumah', $data);
     }
 
