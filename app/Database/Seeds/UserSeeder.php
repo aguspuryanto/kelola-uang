@@ -9,8 +9,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         $data = [
-            'username' => 'admin@gmail.com',
-            'password' => password_hash('admin1234', PASSWORD_BCRYPT),
+            'username' => env('login.username'),
+            'password' => password_hash(env('login.password'), PASSWORD_BCRYPT),
         ];
 
         $this->db->table('users')->insert($data);
