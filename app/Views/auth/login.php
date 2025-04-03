@@ -21,8 +21,8 @@
                             </div>
                         <?php endif; ?>
                         <div class="alert alert-info">
-                            <p>Username: admin@gmail.com</p>
-                            <p>Password: admin1234</p>
+                            <p>Username: <?= env('login.username') ?></p>
+                            <p>Password: <?= env('login.password') ?></p>
                         </div>
                         <form action="/auth/login" method="post">
                             <div class="mb-3">
