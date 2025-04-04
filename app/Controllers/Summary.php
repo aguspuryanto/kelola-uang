@@ -27,7 +27,7 @@ class Summary extends BaseController
         $data['total_rumah'] = $this->rumahModel->selectSum('jumlah')->get()->getRow()->jumlah ?? 0;
         $data['total_renovasi'] = $this->renovasiModel->selectSum('jumlah')->get()->getRow()->jumlah ?? 0;
         
-        $data['total_hutang'] = $this->hutangModel->selectSum('jumlah')->get()->getRow()->jumlah ?? 0;
+        $data['total_hutang'] = $this->hutangModel->selectSum('jumlah')->where('status', 'belum_lunas')->get()->getRow()->jumlah ?? 0;
         $data['total_angsuran'] = $data['total_kavling'] + $data['total_rumah'];
         $data['sisa_hutang'] = $data['total_hutang'] - $data['total_angsuran'];
         

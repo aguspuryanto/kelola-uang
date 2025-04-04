@@ -8,9 +8,39 @@
         <div class="card-header bg-primary text-white">
             <div class="d-flex justify-content-between align-items-center p-2">
                 <div>
-                    <p>Total Hutang <strong class="text-right">Rp <?= number_format($total_hutang['jumlah'], 0, ',', '.') ?></strong></p>
-                    <p>Total Angsuran Rumah <?=count($angsuran)-2 ?> dari 72 kali angsuran</p>
-                    <p>Total Angsuran <strong class="text-right">Rp <?= number_format($total_angsuran['jumlah'], 0, ',', '.') ?></strong></p>
+                    <?php
+                    $angsuran_perbulan = '3239000';
+                    $angsuran_tempuh = 72;
+                    $down_payment = '110000000';
+
+                    /*Harga Beli Rumah	275.000.000 (1)
+				
+                    Angsuran per bulan	  3.239.000
+                    Angsuran periode		 72
+                    Angsuran terbayar	233.208.000
+                    DP Terbayar		110.000.000
+                    ------------------------------------ +
+                    Total DP + Angsuran	343.208.000 (2)
+                    Selisih 		 68.208.000 (3)
+                    Bunga dibayar per tahun  11.368.000 (4) -- point 3 dibagi 6 tahun (72 bulan)
+
+                    -----s/d Maret 2025
+                    Angsuran per bulan	  	3.239.000
+                    Angsuran periode		       36
+                    ------------------------------------------ +
+                    Total Angsuran Terbayar	      116.604.000
+                    DP Terbayar		      110.000.000
+                    ------------------------------------------ +
+                    Total DP + Angsuran	      226.604.000 (2)
+                    Sisa Angsuran Harga Beli       48.396.000
+                    */
+                    ?>
+                    Harga Beli Rumah <strong class="text-right">Rp <?= number_format($total_hutang['jumlah'], 0, ',', '.') ?></strong><br>
+                    Angsuran per bulan <strong class="text-right">Rp <?= number_format($angsuran_perbulan, 0, ',', '.') ?></strong><br>
+                    Angsuran berjalan <strong class="text-right"><?=count($angsuran)-2 ?> dari 72 kali angsuran</strong><br>
+                    Angsuran terbayar <strong class="text-right">Rp <?= number_format($total_angsuran['jumlah'], 0, ',', '.') ?></strong><br>
+                    Total DP + Angsuran <strong class="text-right">Rp <?= number_format($total_angsuran['jumlah']+(110000000), 0, ',', '.') ?></strong><br>
+                    Sisa Angsuran Harga Beli <strong class="text-right">Rp <?= number_format($total_hutang['jumlah']-(($total_angsuran['jumlah'])+(110000000)), 0, ',', '.') ?></strong>
                 </div>
             </div>
         </div>

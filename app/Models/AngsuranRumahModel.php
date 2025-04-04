@@ -15,8 +15,10 @@ class AngsuranRumahModel extends Model
 
     public function getTotalAngsuran()
     {
+        // where keterangan like '%angsuran%'
         return $this->db->table('angsuran_rumah')
             ->selectSum('jumlah')
+            ->like('keterangan', 'angsuran') // Partial match condition
             ->get()->getRowArray();
     }
 
