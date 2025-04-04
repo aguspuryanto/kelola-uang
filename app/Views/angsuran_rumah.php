@@ -8,12 +8,9 @@
         <div class="card-header bg-primary text-white">
             <div class="d-flex justify-content-between align-items-center p-2">
                 <div>
-                    <i class="fas fa-table me-1"></i>
-                    Total Angsuran Rumah <?=count($angsuran)-2 ?> dari 72 kali angsuran
-                </div>
-                <div>
-                    <p>Total Hutang <strong>Rp <?= number_format($total_hutang['jumlah'], 0, ',', '.') ?></strong></p>
-                    <p>Total Angsuran <strong>Rp <?= number_format($total_angsuran['jumlah'], 0, ',', '.') ?></strong></p>
+                    <p>Total Hutang <strong class="text-right">Rp <?= number_format($total_hutang['jumlah'], 0, ',', '.') ?></strong></p>
+                    <p>Total Angsuran Rumah <?=count($angsuran)-2 ?> dari 72 kali angsuran</p>
+                    <p>Total Angsuran <strong class="text-right">Rp <?= number_format($total_angsuran['jumlah'], 0, ',', '.') ?></strong></p>
                 </div>
             </div>
         </div>
